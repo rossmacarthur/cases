@@ -69,8 +69,8 @@ type WriteFn = func(s *strings.Builder, word string)
 
 // Transform reconstructs the string using the given functions.
 //
-// writeFn is called for each word and delimFn is called for each word boundary.
-func Transform(s string, writeFn WriteFn, delimFn DelimFn) string {
+// wordFn is called for each word and delimFn is called for each word boundary.
+func Transform(s string, wordFn WriteFn, delimFn DelimFn) string {
 	out := strings.Builder{}
 
 	runes := []rune(s)
@@ -91,7 +91,7 @@ func Transform(s string, writeFn WriteFn, delimFn DelimFn) string {
 			} else {
 				first = false
 			}
-			writeFn(&out, string(runes[start:end]))
+			wordFn(&out, string(runes[start:end]))
 		}
 	}
 

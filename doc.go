@@ -16,10 +16,10 @@
 //
 // Word boundaries are defined as follows:
 // - A set consecutive Unicode spaces, underscores or hyphens
-//   e.g. "foo _bar" is two words (foo and bar)
+//   e.g. `foo _bar` is two words (`foo` and `bar`)
 // - A transition from a lowercase letter to an uppercase letter
-//   e.g. fooBar is two words (foo and Bar)
+//   e.g. `fooBar` is two words (`foo` and `Bar`)
 // - The second last uppercase letter in a word with multiple uppercase letters
-//   e.g. FOOBar is two words (FOO and Bar)
+//   e.g. `FOOBar` is two words (`FOO` and `Bar`)
 
 package cases

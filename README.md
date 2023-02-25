@@ -7,24 +7,86 @@ A case conversion library for Go.
 
 The currently supported cases are:
 
-| Function                  | Output               |
-| ------------------------- | -------------------- |
-| cases.ToCamel(s)          | camelCase            |
-| cases.ToPascal(s)         | PascalCase           |
-| cases.ToSnake(s)          | snake_case           |
-| cases.ToScreamingSnake(s) | SCREAMING_SNAKE_CASE |
-| cases.ToKebab(s)          | kebab-case           |
-| cases.ToScreamingKebab(s) | SCREAMING-KEBAB-CASE |
-| cases.ToTitle(s)          | Title Case           |
-| cases.ToTrain(s)          | Train-Case           |
+| Function                              | Output                 |
+| :------------------------------------ | :--------------------- |
+| `cases.ToCamel(s)`                    | `camelCase`            |
+| `cases.ToPascal(s)`                   | `PascalCase`           |
+| `cases.ToSnake(s)`                    | `snake_case`           |
+| `cases.ToScreamingSnake(s)`           | `SCREAMING_SNAKE_CASE` |
+| `cases.ToKebab(s)`                    | `kebab-case`           |
+| `cases.ToScreamingKebab(s)`           | `SCREAMING-KEBAB-CASE` |
+| `cases.ToTitle(s)`                    | `Title Case`           |
+| `cases.ToTrain(s)`                    | `Train-Case`           |
+| `cases.Transform(s, wordFn, delimFn)` | *your own case here*   |
 
 Word boundaries are defined as follows:
-- A set consecutive Unicode spaces, underscores or hyphens
-  e.g. "foo _bar" is two words (foo and bar)
-- A transition from a lowercase letter to an uppercase letter
-  e.g. fooBar is two words (foo and Bar)
+- A set consecutive Unicode spaces, underscores or hyphens e.g. `foo _bar` is
+  two words (`foo` and `bar`)
+- A transition from a lowercase letter to an uppercase letter e.g. `fooBar` is
+  two words (`foo` and `Bar`)
 - The second last uppercase letter in a word with multiple uppercase letters
-  e.g. FOOBar is two words (FOO and Bar)
+  e.g. `FOOBar` is two words (`FOO` and `Bar`)
+
+## Getting started
+
+Install using
+
+```sh
+go get -u github.com/rossmacarthur/cases
+```
+
+Now convert a string using the relevant function.
+
+```go
+import "github.com/rossmacarthur/cases"
+
+cases.ToSnake("XMLHttpRequest") // returns "xml_http_request"
+```
+
+## Customizing
+
+This library also exposes a `Transform` function which allows flexible
+customization of the output.
+
+For example if you wanted `dotted.snake.case` you could do the following.
+
+```go
+import (
+    "strings"
+    "github.com/rossmacarthur/cases"
+)
+
+cases.Transform("XmlHttpRequest", cases.ToLower,
+    func (s *strings.Builder) { s.WriteRune('.') }) // returns xml.http.request
+```
+
+Here is a more involved example in order to handle acronyms in `PascalCase`.
+
+```go
+import (
+    "strings"
+    "github.com/rossmacarthur/cases"
+)
+
+// The default ToPascal function has no understanding of acronyms
+cases.ToPascal("xml_http_request") // returns "XmlHttpRequest"
+
+// We can instead use Transform directly
+acronyms := map[string]string{
+    "id":   "ID",
+    "http": "HTTP",
+    "xml":  "XML",
+}
+writeFn := func(s *strings.Builder, word string) {
+    if w, ok := acronyms[word]; ok {
+        s.WriteString(w)
+    } else {
+        // fallback to default
+        cases.WriteTitle(s, word)
+    }
+}
+cases.Transform("xml_http_request", writeFn, cases.DelimNone) // returns "XMLHTTPRequest"
+```
 
 ## License
 
