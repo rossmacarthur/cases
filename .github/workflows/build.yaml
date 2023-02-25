@@ -1,0 +1,19 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+
+      - name: Format
+        run: diff <(echo -n) <(gofmt -s -d .)
+
+      - name: Test
+        run: go test -v ./...
+
+      - name: Vet
+        run: go vet -v ./...

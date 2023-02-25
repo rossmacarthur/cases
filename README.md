@@ -1,5 +1,8 @@
 # cases
 
+[![Go Reference](https://pkg.go.dev/badge/rossmacarthur/cases/format.svg)](https://pkg.go.dev/github.com/rossmacarthur/cases)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/rossmacarthur/cases/build.yaml?branch=trunk)](https://github.com/rossmacarthur/cases/actions/workflows/build.yaml)
+
 A case conversion library for Go.
 
 The currently supported cases are:
@@ -14,6 +17,14 @@ The currently supported cases are:
 | cases.ToScreamingKebab(s) | SCREAMING-KEBAB-CASE |
 | cases.ToTitle(s)          | Title Case           |
 | cases.ToTrain(s)          | Train-Case           |
+
+Word boundaries are defined as follows:
+- A set consecutive Unicode spaces, underscores or hyphens
+  e.g. "foo _bar" is two words (foo and bar)
+- A transition from a lowercase letter to an uppercase letter
+  e.g. fooBar is two words (foo and Bar)
+- The second last uppercase letter in a word with multiple uppercase letters
+  e.g. FOOBar is two words (FOO and Bar)
 
 ## License
 
