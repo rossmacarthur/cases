@@ -70,11 +70,6 @@ type WriteFn = func(s *strings.Builder, word string)
 // Transform reconstructs the string using the given functions.
 //
 // writeFn is called for each word and delimFn is called for each word boundary.
-//
-// Word boundaries are defined as:
-// - we encounter a space, underscore or hyphen, consecutive are folded into one
-// - we encounter a transition from lowercase to uppercase
-// - we encounter the second last uppercase character
 func Transform(s string, writeFn WriteFn, delimFn DelimFn) string {
 	out := strings.Builder{}
 
