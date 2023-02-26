@@ -21,7 +21,7 @@ func ToCamel(s string) string {
 
 // ToPascal converts a string to PascalCase.
 func ToPascal(s string) string {
-	return Transform(s, WriteLower, DelimNone)
+	return Transform(s, WriteTitle, DelimNone)
 }
 
 // ToSnake converts a string to snake_case.
@@ -46,7 +46,7 @@ func ToScreamingKebab(s string) string {
 
 // ToTitle converts a string to Title Case.
 func ToTitle(s string) string {
-	return Transform(s, WriteTitle, DelimNone)
+	return Transform(s, WriteTitle, DelimSpace)
 }
 
 // ToTrain converts a string to Train-Case.
@@ -151,6 +151,11 @@ func DelimUnderscore(s *strings.Builder) {
 // DelimHyphen is a delimiter function that inserts a hyphen.
 func DelimHyphen(s *strings.Builder) {
 	s.WriteRune('-')
+}
+
+// DelimSpace is a delimiter function that inserts a space.
+func DelimSpace(s *strings.Builder) {
+	s.WriteRune(' ')
 }
 
 // WriteUpper writes the word in uppercase.

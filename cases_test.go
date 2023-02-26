@@ -187,7 +187,7 @@ var tests []testCase = []testCase{
 	},
 }
 
-func TestToCamelCase(t *testing.T) {
+func TestToCamel(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.in, func(t *testing.T) {
 			got := cases.ToCamel(tc.in)
@@ -196,11 +196,41 @@ func TestToCamelCase(t *testing.T) {
 	}
 }
 
-func TestToSnakeCase(t *testing.T) {
+func TestToPascal(t *testing.T) {
+	result := cases.ToPascal("test case")
+	require.Equal(t, "TestCase", result)
+}
+
+func TestToSnake(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.in, func(t *testing.T) {
 			got := cases.ToSnake(tc.in)
 			require.Equal(t, tc.snakeCase, got, fmt.Sprintf("'%s'", tc.in))
 		})
 	}
+}
+
+func TestToScreamingSnake(t *testing.T) {
+	result := cases.ToScreamingSnake("test case")
+	require.Equal(t, "TEST_CASE", result)
+}
+
+func TestToKebab(t *testing.T) {
+	result := cases.ToKebab("test case")
+	require.Equal(t, "test-case", result)
+}
+
+func TestToScreamingKebab(t *testing.T) {
+	result := cases.ToScreamingKebab("test case")
+	require.Equal(t, "TEST-CASE", result)
+}
+
+func TestToTitle(t *testing.T) {
+	result := cases.ToTitle("test case")
+	require.Equal(t, "Test Case", result)
+}
+
+func TestToTrain(t *testing.T) {
+	result := cases.ToTrain("test case")
+	require.Equal(t, "Test-Case", result)
 }
