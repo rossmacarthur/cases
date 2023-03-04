@@ -44,14 +44,24 @@ func ToScreamingKebab(s string) string {
 	return Transform(s, WriteUpper, DelimHyphen)
 }
 
+// ToTrain converts a string to Train-Case.
+func ToTrain(s string) string {
+	return Transform(s, WriteTitle, DelimHyphen)
+}
+
+// ToLower converts a string to lower case.
+func ToLower(s string) string {
+	return Transform(s, WriteLower, DelimSpace)
+}
+
 // ToTitle converts a string to Title Case.
 func ToTitle(s string) string {
 	return Transform(s, WriteTitle, DelimSpace)
 }
 
-// ToTrain converts a string to Train-Case.
-func ToTrain(s string) string {
-	return Transform(s, WriteTitle, DelimHyphen)
+// ToUpper converts a string to UPPER CASE.
+func ToUpper(s string) string {
+	return Transform(s, WriteUpper, DelimSpace)
 }
 
 type state int

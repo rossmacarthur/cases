@@ -15,8 +15,10 @@ The currently supported cases are:
 | `cases.ToScreamingSnake(s)`           | `SCREAMING_SNAKE_CASE` |
 | `cases.ToKebab(s)`                    | `kebab-case`           |
 | `cases.ToScreamingKebab(s)`           | `SCREAMING-KEBAB-CASE` |
-| `cases.ToTitle(s)`                    | `Title Case`           |
 | `cases.ToTrain(s)`                    | `Train-Case`           |
+| `cases.ToLower(s)`                    | `lower case`           |
+| `cases.ToTitle(s)`                    | `Title Case`           |
+| `cases.ToUpper(s)`                    | `UPPER CASE`           |
 | `cases.Transform(s, wordFn, delimFn)` | *your own case here*   |
 
 Word boundaries are defined as follows:

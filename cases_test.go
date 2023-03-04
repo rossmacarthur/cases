@@ -226,14 +226,24 @@ func TestToScreamingKebab(t *testing.T) {
 	require.Equal(t, "TEST-CASE", result)
 }
 
-func TestToTitle(t *testing.T) {
-	result := cases.ToTitle("test case")
-	require.Equal(t, "Test Case", result)
-}
-
 func TestToTrain(t *testing.T) {
 	result := cases.ToTrain("test case")
 	require.Equal(t, "Test-Case", result)
+}
+
+func TestToLower(t *testing.T) {
+	result := cases.ToLower("Test-case")
+	require.Equal(t, "test case", result)
+}
+
+func TestToTitle(t *testing.T) {
+	result := cases.ToTitle("Test-case")
+	require.Equal(t, "Test Case", result)
+}
+
+func TestToUpper(t *testing.T) {
+	result := cases.ToUpper("Test-case")
+	require.Equal(t, "TEST CASE", result)
 }
 
 func BenchmarkToSnake(b *testing.B) {
