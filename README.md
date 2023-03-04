@@ -58,8 +58,11 @@ import (
     "github.com/rossmacarthur/cases"
 )
 
-cases.Transform("XmlHttpRequest", cases.ToLower,
-    func (s *strings.Builder) { s.WriteRune('.') }) // returns xml.http.request
+func delimDot(s *strings.Builder) {
+    s.WriteRune('.')
+}
+
+cases.Transform("XmlHttpRequest", cases.ToLower, delimDot) // returns xml.http.request
 ```
 
 Here is a more involved example in order to handle acronyms in `PascalCase`.
@@ -74,13 +77,9 @@ import (
 cases.ToPascal("xml_http_request") // returns "XmlHttpRequest"
 
 // We can instead use Transform directly
-acronyms := map[string]string{
-    "id":   "ID",
-    "http": "HTTP",
-    "xml":  "XML",
-}
 writeFn := func(s *strings.Builder, word string) {
-    if w, ok := acronyms[word]; ok {
+    w := strings.ToUpper(asLower)
+    if w == "ID" || w == "HTTP" {
         s.WriteString(w)
     } else {
         // fallback to default
