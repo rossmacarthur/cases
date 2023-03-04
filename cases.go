@@ -72,6 +72,7 @@ type WriteFn = func(s *strings.Builder, word string)
 // wordFn is called for each word and delimFn is called for each word boundary.
 func Transform(s string, wordFn WriteFn, delimFn DelimFn) string {
 	out := strings.Builder{}
+	out.Grow(len(s))
 
 	runes := []rune(s)
 

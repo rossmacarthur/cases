@@ -2,6 +2,7 @@ package cases_test
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/rossmacarthur/cases"
@@ -233,4 +234,11 @@ func TestToTitle(t *testing.T) {
 func TestToTrain(t *testing.T) {
 	result := cases.ToTrain("test case")
 	require.Equal(t, "Test-Case", result)
+}
+
+func BenchmarkToSnake(b *testing.B) {
+	s := strings.Repeat("ThisIs a/Test_case.", 100)
+	for i := 0; i < b.N; i++ {
+		cases.ToSnake(s)
+	}
 }
