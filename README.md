@@ -20,8 +20,8 @@ The currently supported cases are:
 | `cases.Transform(s, wordFn, delimFn)` | *your own case here*   |
 
 Word boundaries are defined as follows:
-- A set consecutive Unicode spaces, underscores or hyphens e.g. `foo _bar` is
-  two words (`foo` and `bar`)
+- A set of consecutive Unicode non-letter/number/symbol e.g. `foo _bar` is two
+  words (`foo` and `bar`)
 - A transition from a lowercase letter to an uppercase letter e.g. `fooBar` is
   two words (`foo` and `Bar`)
 - The second last uppercase letter in a word with multiple uppercase letters
