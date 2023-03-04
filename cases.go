@@ -96,7 +96,7 @@ func Transform(s string, wordFn WriteFn, delimFn DelimFn) string {
 	}
 
 	for i, r := range runes {
-		if unicode.IsSpace(r) || r == '_' || r == '-' {
+		if !(unicode.IsLetter(r) || unicode.IsNumber(r) || unicode.IsSymbol(r)) {
 			state = stateDelims
 			if end == -1 {
 				end = i // store the end of the previous word

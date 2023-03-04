@@ -88,13 +88,13 @@ var tests []testCase = []testCase{
 	},
 
 	{in: "This is a Test case.",
-		snakeCase: "this_is_a_test_case.",
-		camelCase: "thisIsATestCase.",
+		snakeCase: "this_is_a_test_case",
+		camelCase: "thisIsATestCase",
 	},
 
 	{in: "MixedUP CamelCase, with some Spaces",
-		snakeCase: "mixed_up_camel_case,_with_some_spaces",
-		camelCase: "mixedUpCamelCase,WithSomeSpaces",
+		snakeCase: "mixed_up_camel_case_with_some_spaces",
+		camelCase: "mixedUpCamelCaseWithSomeSpaces",
 	},
 
 	{in: "mixed_up_ snake_case with some _spaces",
