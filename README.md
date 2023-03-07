@@ -79,14 +79,14 @@ cases.ToPascal("xml_http_request") // returns "XmlHttpRequest"
 // We can instead use Transform directly
 writeFn := func(s *strings.Builder, word string) {
     w := strings.ToUpper(asLower)
-    if w == "ID" || w == "HTTP" {
+    if w == "XML" || w == "HTTP" {
         s.WriteString(w)
     } else {
         // fallback to default
         cases.WriteTitle(s, word)
     }
 }
-cases.Transform("xml_http_request", writeFn, cases.DelimNone) // returns "XMLHTTPRequest"
+cases.Transform("xml_http_request", writeFn, nil) // returns "XMLHTTPRequest"
 ```
 
 ## License

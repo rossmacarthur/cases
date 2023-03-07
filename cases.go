@@ -16,12 +16,12 @@ func ToCamel(s string) string {
 			WriteTitle(s, word)
 		}
 	}
-	return Transform(s, writeFn, DelimNone)
+	return Transform(s, writeFn, nil)
 }
 
 // ToPascal converts a string to PascalCase.
 func ToPascal(s string) string {
-	return Transform(s, WriteTitle, DelimNone)
+	return Transform(s, WriteTitle, nil)
 }
 
 // ToSnake converts a string to snake_case.
@@ -73,14 +73,14 @@ const (
 	stateUpper   state = 3
 )
 
-type DelimFn = func(s *strings.Builder)
+type delimFn = func(s *strings.Builder)
 
-type WriteFn = func(s *strings.Builder, word string)
+type writeFn = func(s *strings.Builder, word string)
 
 // Transform reconstructs the string using the given functions.
 //
 // wordFn is called for each word and delimFn is called for each word boundary.
-func Transform(s string, wordFn WriteFn, delimFn DelimFn) string {
+func Transform(s string, wf writeFn, df delimFn) string {
 	out := strings.Builder{}
 	out.Grow(len(s))
 
@@ -97,12 +97,12 @@ func Transform(s string, wordFn WriteFn, delimFn DelimFn) string {
 
 	emit := func(end int) {
 		if end-start > 0 {
-			if !first {
-				delimFn(&out)
-			} else {
+			if first {
 				first = false
+			} else if df != nil {
+				df(&out)
 			}
-			wordFn(&out, string(runes[start:end]))
+			wf(&out, string(runes[start:end]))
 		}
 	}
 
@@ -147,11 +147,6 @@ func Transform(s string, wordFn WriteFn, delimFn DelimFn) string {
 	}
 
 	return out.String()
-}
-
-// DelimNone is a delimiter function that does not insert any delimiter.
-func DelimNone(s *strings.Builder) {
-
 }
 
 // DelimUnderscore is a delimiter function that inserts an underscore.
