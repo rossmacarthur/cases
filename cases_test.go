@@ -2,6 +2,7 @@ package cases_test
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"testing"
 
@@ -247,8 +248,37 @@ func TestToUpper(t *testing.T) {
 }
 
 func BenchmarkToSnake(b *testing.B) {
-	s := strings.Repeat("ThisIs a/Test_case.", 100)
-	for i := 0; i < b.N; i++ {
-		cases.ToSnake(s)
-	}
+	s := strings.Repeat("ThisIsATestCase", 100)
+
+	require.True(b, cases.ToSnake(s) == regexToSnake(s))
+
+	b.Run("cases", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			cases.ToSnake(s)
+		}
+	})
+
+	b.Run("regex", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			regexToSnake(s)
+		}
+	})
 }
+
+// regexToSnake is a regex implementation to convert to snake case to compare
+// the benchmark to.
+//
+// This function doesn't support as many word boundaries as cases.ToSnake but
+// it is still much slower than the cases.ToSnake implementation.
+//
+// From https://stackoverflow.com/a/56616250/4591251
+func regexToSnake(s string) string {
+	snake := matchFirstCap.ReplaceAllString(s, "${1}_${2}")
+	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
+	return strings.ToLower(snake)
+}
+
+var (
+	matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
+	matchAllCap   = regexp.MustCompile("([a-z0-9])([A-Z])")
+)
