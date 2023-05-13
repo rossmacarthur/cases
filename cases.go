@@ -29,7 +29,7 @@ func ToSnake(s string) string {
 	return Transform(s, WriteLower, DelimUnderscore)
 }
 
-// ToScreamingSnake converts a string to SCREAMING_SKAKE_CASE.
+// ToScreamingSnake converts a string to SCREAMING_SNAKE_CASE.
 func ToScreamingSnake(s string) string {
 	return Transform(s, WriteUpper, DelimUnderscore)
 }
