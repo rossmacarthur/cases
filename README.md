@@ -5,6 +5,8 @@
 
 A case conversion library for Go.
 
+![cases](https://github.com/rossmacarthur/cases/assets/17109887/ab3a4c71-6090-49f3-a67f-b1ab395999c6)
+
 The currently supported cases are:
 
 | Function                              | Output                 |
